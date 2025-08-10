@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bhavanithra M — Portfolio</title>
+
+<!-- Fonts + Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  :root{
+    --bg-1: #020613;
+    --bg-2: #071021;
+    --accent: #00e6d2;
+    --muted: #99a0a7;
+    --card: rgba(255,255,255,0.03);
+    --glass: rgba(255,255,255,0.04);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:"Inter",system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    color:#e8f0f2;
+    background:
+      radial-gradient(800px 400px at 10% 90%, rgba(0,230,210,0.04), transparent 8%),
+      radial-gradient(700px 300px at 95% 10%, rgba(0,230,210,0.025), transparent 6%),
+      linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Top bar */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 6%;
+    gap:20px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    backdrop-filter: blur(6px);
+  }
+  .brand{
+    font-size:1.25rem;
+    font-weight:800;
+    color:var(--accent);
+    letter-spacing:0.3px;
+    cursor:pointer;
+  }
+  nav{
+    display:flex;
+    gap:22px;
+    align-items:center;
+  }
+  nav a{
+    color:rgba(235,245,248,0.9);
+    text-decoration:none;
+    font-weight:600;
+    opacity:0.9;
+    padding:8px 10px;
+    border-radius:6px;
+    transition:all .18s ease;
+  }
+  nav a:hover{ color:var(--accent); transform:translateY(-2px); }
+
+  /* Main hero layout */
+  .hero{
+    display:grid;
+    grid-template-columns: 1fr 460px;
+    gap:48px;
+    align-items:center;
+    padding:72px 6% 110px;
+    min-height:520px;
+  }
+
+  /* left column */
+  .hero-left { max-width:720px; }
+  .eyebrow { color:var(--muted); font-weight:600; margin-bottom:8px; }
+  h1{
+    font-size:3.6rem;
+    margin:0 0 6px 0;
+    line-height:1.02;
+    font-weight:800;
+    color:#fff;
+    letter-spacing:-1px;
+  }
+  h1 .name{ color:var(--accent); display:block; font-size:3.6rem; }
+  .subtitle{ color:#d6ecf0; font-size:1.15rem; margin:8px 0 20px; font-weight:500; }
+  .socials{ display:flex; gap:14px; margin:22px 0; }
+  .socials a{
+    width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid rgba(0,230,210,0.15);
+    color:var(--accent); text-decoration:none; background:transparent;
+    box-shadow: 0 4px 18px rgba(0,230,210,0.05); transition:all .18s ease;
+  }
+  .socials a:hover{ transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,230,210,0.18); background:rgba(0,230,210,0.02); }
+
+  .cta-row{ display:flex; gap:18px; align-items:center; margin-top:8px; }
+  .btn-primary{
+    background:linear-gradient(180deg,var(--accent), #00c3b6);
+    color:#002424;
+    padding:14px 22px;
+    border-radius:12px;
+    border:none;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 18px 40px rgba(0,230,210,0.12);
+    text-decoration:none;
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--muted);
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.03);
+    font-weight:600;
+    cursor:pointer;
+  }
+
+  /* right column - circleagon portrait */
+  .hero-right { display:flex; justify-content:center; align-items:center; }
+  .circle-wrap{
+    width:420px; height:460px; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+  }
+
+  /* circleagon shape using clip-path */
+  .circle {
+    width:360px; height:380px; position:relative;
+    background:linear-gradient(180deg, rgba(0,230,210,0.06), rgba(0,230,210,0.02));
+    clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    border-radius:12px;
+    box-shadow: 0 30px 120px rgba(0,230,210,0.06), inset 0 0 90px rgba(0,230,210,0.06);
+  }
+  .circle::before{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(120deg, rgba(0,230,210,0.06), rgba(0,230,210,0.0));
+    mix-blend-mode:screen;
+    pointer-events:none;
+  }
+  .circle .photo{
+    width:95%; height:95%; object-fit:cover; border-radius:8px; transform:translateY(4px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.45), 0 0 40px rgba(0,230,210,0.08) inset;
+  }
+
+  /* bottom glow */
+  .circle-glow{
+    position:absolute; bottom:-48px; width:520px; height:200px; border-radius:50%;
+    background: radial-gradient(closest-side, rgba(0,230,210,0.12), transparent 30%);
+    filter: blur(28px);
+    z-index:-1;
+  }
+
+  /* small responsive */
+  @media (max-width:1000px){
+    .hero{ grid-template-columns:1fr 380px; gap:30px; padding-top:56px; padding-bottom:70px; }
+    h1{ font-size:3rem; }
+  }
+  @media (max-width:800px){
+    .hero{ grid-template-columns:1fr; text-align:center; gap:28px; padding:48px 6% 80px; }
+    .hero-right{ order:-1; }
+    .circle{ width:320px; height:340px; }
+    .circle-wrap{ width:320px; height:340px; }
+    h1{ font-size:2.4rem; }
+    .hero-left{ max-width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand" onclick="openDetail('contact')">My Portfolio</div>
+  <nav aria-label="Main Navigation">
+    <a href="#" onclick="openDetail('about');return false;">About</a>
+    <a href="#" onclick="openDetail('skills');return false;">Skills</a>
+    <a href="#" onclick="openDetail('academics');return false;">Academics</a>
+    <a href="#" onclick="openDetail('certifications');return false;">Certifications</a>
+    <a href="#" onclick="openDetail('projects');return false;">Projects</a>
+    <a href="#" onclick="openDetail('contact');return false;">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" role="banner">
+    <div class="hero-left">
+      <div class="eyebrow">Hello, it's me</div>
+      <h1>I'm <span class="name">Bhavanithra M</span></h1>
+      <div class="subtitle">Frontend Developer | Tech Enthusiast</div>
+
+      <div class="socials" aria-hidden="false">
+        <a title="LinkedIn" href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+        <a title="Instagram" href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a title="GitHub" href="https://github.com/YOUR_GITHUB" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+        <a title="Facebook" href="https://facebook.com/YOUR_FACEBOOK" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+        <a title="Twitter" href="https://twitter.com/YOUR_TWITTER" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+      </div>
+
+      <div class="cta-row">
+        <!-- downloads certificates visible on hero -->
+        <a class="btn-primary" href="certificates.zip" download>Download Certificates</a>
+        <button class="btn-ghost" onclick="openDetail('contact')">View Contact</button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="circle-wrap" aria-hidden="true">
+        <div class="circle" role="img" aria-label="Profile photo">
+          <!-- realistic girl photo (replace with your own link if you want) -->
+          <img class="photo" src="C:\Users\ELCOT\OneDrive\Pictures\Profile Photo.jpg" alt="Profile photo of Bhavanithra">
+        </div>
+        <div class="circle-glow"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* Templates for pages opened in new tabs.
+   Each call opens a new tab and writes styled HTML into it.
+   Replace placeholder text/links with your real details.
+*/
+function openDetail(page){
+  const accent = '#00e6d2';
+  const commonStyles = `
+    <style>
+      body{margin:0;font-family:Inter,Arial; background:linear-gradient(180deg,#020613,#071021); color:#eaf6f4;}
+      a{color:${accent}; text-decoration:none;}
+      .wrap{padding:36px; max-width:900px; margin:28px auto; background:rgba(255,255,255,0.02); border-radius:10px; box-shadow:0 24px 60px rgba(0,0,0,0.6);}
+      h1{margin:0 0 8px; font-size:28px; color:#fff;}
+      p{color:#cfe7e4; line-height:1.6;}
+      ul{color:#cfe7e4; line-height:1.6}
+      .back{display:inline-block; margin-top:18px; padding:8px 12px; border-radius:8px; background:rgba(0,230,210,0.08); color:${accent};}
+      header{display:flex; justify-content:space-between; align-items:center; gap:12px;}
+    </style>
+  `;
+  let bodyHtml = '';
+  switch(page){
+    case 'about':
+      bodyHtml = `
+        <header><h1>About — Bhavanithra M</h1><a class="back" href="#" onclick="window.close()">Close</a></header>
+        <div class="wrap">  
+          <p>About me:
+            I'm Bhavanithra M, A passionate developer. 
+            Interested in Full-Stack Development, Web Development and Data Scientist.
+            Known Languages: C, Pyhton, Java, HTML, CSS, JavaScript and SQL</p>
+          <p><strong>Highlights</strong></p>
+          <ul>
+            <li>Passionate frontend developer with focus on UI/UX and responsive design.</li>
+            <li>Comfortable with HTML, CSS, JavaScript, React and modern tooling.</li>
+            <li>Learner, communicator, team-player — keen on building meaningful products.</li>
+          </ul>
+          <a class="back" href="#" onclick="window.close()">Close</a>
+        </div>
+      `;
+      break;
+
+    case 'skills':
+      bodyHtml = `
+        <header><h1>Skills</h1><a class="back" href="#" onclick="window.close()">Close</a></header>
+        <div class="wrap">
+          <p>List of technical and soft skills. Edit to match your real abilities.</p>
+          <ul>
+            <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
+            <li><strong>Design:</strong> Responsive design, Figma basics, accessibility</li>
+            <li><strong>Tools:</strong> Git, GitHub, Chrome DevTools</li>
+            <li><strong>Soft skills:</strong> Communication, teamwork, problem solving</li>
+          </ul>
+          <a class="back" href="#" onclick="window.close()">Close</a>
+        </div>
+      `;
+      break;
+
+    case 'academics':
+      bodyHtml = `
+        <header><h1>Academics</h1><a class="back" href="#" onclick="window.close()">Close</a></header>
+        <div class="wrap">
+          <p>Details about education.</p>
+          <ul>
+            <li>B.Tech — Information Technology — [Anna University], [2023-2027]</li>
+            <li>Senior Secondary — [Government Model Girls Higher Secondary School], [2023 passed out]</li>
+          </ul>
+          <a class="back" href="#" onclick="window.close()">Close</a>
+        </div>
+      `;
+      break;
+
+    case 'certifications':
+      bodyHtml = `
+        <header><h1>Certifications</h1><a class="back" href="#" onclick="window.close()">Close</a></header>
+        <div class="wrap">
+          <p>Several online and workshop certificates. Click the download link to get a zip of certificates (placeholder).</p>
+          <ul>
+            <li>HTML & CSS — [Infosys]</li>
+            <li>JavaScript — [Cousera]</li>
+            <li>React — [IBM]</li>
+            <li>MongoDB Clusters - [MongoDB]</li>
+          </ul>
+          <p><a href="certificates.zip" download>📥 Download all certificates (zip)</a></p>
+          <a class="back" href="#" onclick="window.close()">Close</a>
+        </div>
+      `;
+      break;
+
+    case 'projects':
+      bodyHtml = `
+        <header><h1>Projects</h1><a class="back" href="#" onclick="window.close()">Close</a></header>
+        <div class="wrap">
+          <p>Showcase of selected projects with short descriptions and links to GitHub or live demos. Replace these with your projects.</p>
+          <ul>
+            <li><strong>Project A</strong> — Transmitting and recieving signals from ambulance to all other vehicles to make all alert of ambulance. <a href="#" target="_blank">Live</a> · <a href="#" target="_blank">Code</a></li>
+            <li><strong>Project B</strong> — Preventing druken drive using an automatic engine locking system to avoid accidents and loss. <a href="#" target="_blank">Live</a> · <a href="#" target="_blank">Code</a></li>
+          </ul>
+          <a class="back" href="#" onclick="window.close()">Close</a>
+        </div>
+      `;
+      break;
+
+    default: // contact
+      bodyHtml = `
+        <header><h1>Contact</h1><a class="back" href="#" onclick="window.close()">Close</a></header>
+        <div class="wrap">
+          <p>Contact links and quick actions. Replace the sample links with your actual profile URLs.</p>
+          <ul>
+            <li>Email: <a href="mailto:your.email@example.com">bhavanithramani@gmail.com</a></li>
+            <li>Phone: +91-63825 17475</li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/bhavanit37080291hra-mani-5/" target="_blank">https://www.linkedin.com/in/bhavanit37080291hra-mani-5/</a></li>
+            <li>Instagram: <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank">instagram.com/YOUR_INSTAGRAM</a></li>
+            <li>GitHub: <a href="https://github.com/BhavanithraM" target="_blank">https://github.com/BhavanithraM</a></li>
+            <li>Twitter: <a href="https://twitter.com/YOUR_TWITTER" target="_blank">twitter.com/YOUR_TWITTER</a></li>
+          </ul>
+          <a class="back" href="#" onclick="window.close()">Close</a>
+        </div>
+      `;
+  }
+
+  // Open a new tab and write content
+  const w = window.open('', '_blank');
+  if (!w) { alert('Popup blocked — allow popups for this site to open details in new tabs.'); return; }
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">` + commonStyles + `</head><body>` + bodyHtml + `</body></html>`);
+  w.document.close();
+}
+</script>
+
+</body>
+</html>
