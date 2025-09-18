@@ -9,22 +9,8 @@
 
   <h1>Simple Microblog</h1>
 
-  <!-- User creation form -->
-  <div>
-    <h2>Create a New User</h2>
-    <input type="text" id="username" placeholder="Enter username">
-    <button onclick="createUser()">Create User</button>
-  </div>
-
-  <!-- Current active user -->
-  <div>
-    <h2>Active User: <span id="activeUser">None</span></h2>
-    <button onclick="logOut()">Log Out</button>
-  </div>
-
   <!-- Post submission -->
   <div>
-    <h2>Create a Post</h2>
     <textarea id="postContent" placeholder="What's happening?" rows="4" cols="50"></textarea><br>
     <button onclick="createPost()">Post</button>
   </div>
@@ -36,48 +22,18 @@
   </div>
 
   <script>
-    let users = [];
-    let activeUser = null;
     let posts = [];
-
-    // Create a new user
-    function createUser() {
-      const username = document.getElementById("username").value;
-      if (username.trim() === "") {
-        alert("Please enter a valid username.");
-        return;
-      }
-      const user = { id: Date.now(), username };
-      users.push(user);
-      activeUser = user;
-      document.getElementById("activeUser").textContent = activeUser.username;
-      document.getElementById("username").value = ""; // Clear the input
-    }
-
-    // Log out the active user
-    function logOut() {
-      activeUser = null;
-      document.getElementById("activeUser").textContent = "None";
-    }
 
     // Create a new post
     function createPost() {
-      if (!activeUser) {
-        alert("You must be logged in to post.");
-        return;
-      }
       const postContent = document.getElementById("postContent").value;
       if (postContent.trim() === "") {
         alert("Please write something to post.");
         return;
       }
-      const post = {
-        userId: activeUser.id,
-        username: activeUser.username,
-        content: postContent,
-        timestamp: new Date().toLocaleString()
-      };
-      posts.push(post);
+
+      // Add post to the feed
+      posts.push(postContent);
       renderFeed();
       document.getElementById("postContent").value = ""; // Clear the textarea
     }
@@ -88,7 +44,7 @@
       feed.innerHTML = "";
       posts.forEach(post => {
         const li = document.createElement("li");
-        li.textContent = `${post.username} (${post.timestamp}): ${post.content}`;
+        li.textContent = post;
         feed.appendChild(li);
       });
     }
